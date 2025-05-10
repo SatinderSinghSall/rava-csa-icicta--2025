@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"; // for redirection
 import backgroundLogo from "../assets/register-bg.jpg";
 
 const Register = () => {
@@ -15,6 +16,8 @@ const Register = () => {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [modalVisible, setModalVisible] = useState(false); // New state for modal visibility
+  const navigate = useNavigate(); // Initialize the navigation hook
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -65,6 +68,7 @@ const Register = () => {
         institution: "",
         country: "",
       });
+      setModalVisible(true); // Show the modal after successful registration
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
       setStatus("error");
@@ -80,6 +84,14 @@ const Register = () => {
     { name: "institution", label: "Institution", type: "text" },
     { name: "country", label: "Country", type: "text" },
   ];
+
+  useEffect(() => {
+    if (modalVisible) {
+      setTimeout(() => {
+        navigate("/"); // Redirect after 3-4 seconds
+      }, 3000);
+    }
+  }, [modalVisible, navigate]);
 
   return (
     <main
@@ -170,6 +182,23 @@ const Register = () => {
           )}
         </form>
       </div>
+
+      {/* Modal for successful registration */}
+      {modalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80 sm:w-96 text-center">
+            <h2 className="text-xl font-semibold text-green-600">
+              Registration Successful!
+            </h2>
+            <button
+              onClick={() => navigate("/")}
+              className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
