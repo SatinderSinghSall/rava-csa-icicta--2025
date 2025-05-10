@@ -49,7 +49,7 @@ const Home = () => {
 
             <div className="mt-12 max-w-md mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 transition-all hover:shadow-2xl">
               <h4 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
-                Conference starts in:
+                Conference Countdown:
               </h4>
               <Countdown />
             </div>
