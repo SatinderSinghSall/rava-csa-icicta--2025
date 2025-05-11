@@ -8,8 +8,12 @@ const Navbar = () => {
   return (
     <header className="bg-white shadow sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3 md:py-4">
-        <Link to="/" className="text-2xl font-bold text-blue-700">
-          REVA: CSA ICICTA 2025
+        <Link
+          to="/"
+          className="text-lg sm:text-xl md:text-2xl font-bold text-blue-700 leading-tight tracking-tight"
+        >
+          <span className="block sm:inline">REVA University - CSA</span>{" "}
+          <span className="block sm:inline">ICICTA 2025</span>
         </Link>
 
         {/* Mobile Menu Button */}

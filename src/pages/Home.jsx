@@ -26,8 +26,16 @@ const Home = () => {
               alt="REVA University Logo"
               className="mx-auto mb-8 h-20 sm:h-24 rounded-xl shadow-lg transition-transform duration-500 hover:scale-105"
             />
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-900 tracking-tight mb-4">
-              REVA: CSA ICICTA 2025
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 leading-snug tracking-tight mb-6">
+              <span className="block text-blue-800 font-extrabold">
+                REVA University
+              </span>
+              <span className="block text-blue-700">
+                School of Computer Science & Applications
+              </span>
+              <span className="block mt-2 text-indigo-700 text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                <span className="text-indigo-900 font-bold">ICICTA-2025</span>
+              </span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-800 font-medium">
               6<sup>th</sup> International Conference on Innovative Computing

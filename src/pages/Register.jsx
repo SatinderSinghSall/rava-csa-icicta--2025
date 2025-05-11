@@ -102,7 +102,7 @@ const Register = () => {
 
       <div className="relative z-10 w-full max-w-md sm:max-w-lg md:max-w-xl bg-white/90 rounded-3xl shadow-xl p-6 sm:p-10 md:p-12 space-y-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-700">
-          Create Account
+          Register Now!
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
