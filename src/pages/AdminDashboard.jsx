@@ -72,7 +72,7 @@ const AdminDashboard = () => {
   };
 
   const handleDeleteAdmin = (email) => {
-    setConfirmDeleteEmail(email); // Show the modal with the selected email
+    setConfirmDeleteEmail(email);
   };
 
   const confirmDelete = async () => {
@@ -99,16 +99,16 @@ const AdminDashboard = () => {
   };
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10">
+    <main className="max-w-full md:max-w-6xl mx-auto px-4 py-10">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-4xl font-semibold text-gray-900">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 md:gap-0">
+        <h1 className="text-2xl md:text-4xl font-semibold text-gray-900">
           📊 Admin Dashboard
         </h1>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl transition"
+            className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl transition w-full sm:w-auto"
           >
             <FaUserPlus className="mr-2" /> Add Admin
           </button>
@@ -117,23 +117,23 @@ const AdminDashboard = () => {
               fetchAdmins();
               setShowViewModal(true);
             }}
-            className="flex items-center bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-xl transition"
+            className="flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-xl transition w-full sm:w-auto"
           >
             👁️ View Admins
           </button>
           <button
             onClick={handleLogout}
-            className="flex items-center bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl transition"
+            className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl transition w-full sm:w-auto"
           >
             <FaSignOutAlt className="mr-2" /> Logout
           </button>
         </div>
       </div>
 
-      {/* Modal to add an Admin: */}
+      {/* Modal to add an Admin */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md sm:max-w-lg">
             <h2 className="text-xl font-semibold mb-4">Register New Admin</h2>
             <form onSubmit={handleAddAdmin} className="space-y-4">
               <input
@@ -181,10 +181,10 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* Modal to view the Admins: */}
+      {/* Modal to view the Admins */}
       {showViewModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md sm:max-w-lg">
             <h2 className="text-xl font-semibold mb-4">All Admins</h2>
             <ul className="space-y-2 max-h-60 overflow-y-auto">
               {adminList.map((admin, index) => (
@@ -198,7 +198,7 @@ const AdminDashboard = () => {
                       onClick={() => handleDeleteAdmin(admin.email)}
                       className="text-red-500 hover:text-red-600"
                     >
-                      <FaTrashAlt /> {/* Trash icon for delete */}
+                      <FaTrashAlt />
                     </button>
                   </div>
                 </li>
@@ -216,10 +216,10 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* Custom delete confirmation modal: */}
+      {/* Confirm Delete Modal */}
       {confirmDeleteEmail && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md sm:max-w-lg">
             <h2 className="text-xl font-semibold mb-4 text-red-600">
               Confirm Deletion
             </h2>
@@ -252,17 +252,17 @@ const AdminDashboard = () => {
       )}
 
       {/* Table Section */}
-      <section className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="overflow-x-auto">
+      <section className="bg-white rounded-2xl shadow-xl overflow-hidden mt-6">
+        <div className="overflow-x-auto w-full">
           <table className="min-w-full divide-y divide-gray-200 text-sm text-gray-700">
             <thead className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
               <tr>
-                <th className="px-6 py-3 font-medium">Name</th>
-                <th className="px-6 py-3 font-medium">Email</th>
-                <th className="px-6 py-3 font-medium">Phone</th>
-                <th className="px-6 py-3 font-medium">Category</th>
-                <th className="px-6 py-3 font-medium">Institution</th>
-                <th className="px-6 py-3 font-medium">Country</th>
+                <th className="px-6 py-3 font-medium text-left">Name</th>
+                <th className="px-6 py-3 font-medium text-left">Email</th>
+                <th className="px-6 py-3 font-medium text-left">Phone</th>
+                <th className="px-6 py-3 font-medium text-left">Category</th>
+                <th className="px-6 py-3 font-medium text-left">Institution</th>
+                <th className="px-6 py-3 font-medium text-left">Country</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
