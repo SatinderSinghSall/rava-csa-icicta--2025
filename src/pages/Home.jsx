@@ -43,7 +43,7 @@ const Home = () => {
                 className="inline-flex items-center gap-2 px-8 py-3 bg-blue-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg hover:bg-blue-800 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
                 <FilePlus className="w-5 h-5" />
-                <span>Register Now!</span>
+                <span>Register right Now!</span>
               </a>
             </div>
 
