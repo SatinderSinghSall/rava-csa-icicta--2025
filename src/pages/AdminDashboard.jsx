@@ -12,6 +12,8 @@ const AdminDashboard = () => {
   const [confirmDeleteEmail, setConfirmDeleteEmail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUserModal, setShowUserModal] = useState(false);
 
   useEffect(() => {
     const fetchRegistrations = async () => {
@@ -98,6 +100,25 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDeleteRegistration = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this registration?"))
+      return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `https://rava-csa-icicta-2025.onrender.com/api/registrations/${id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Registration deleted successfully!");
+      setData(data.filter((entry) => entry._id !== id));
+      setShowUserModal(false);
+    } catch (error) {
+      console.error("Delete failed:", error);
+      toast.error("Failed to delete registration.");
+    }
+  };
+
   return (
     <main className="max-w-full md:max-w-6xl mx-auto px-4 py-10">
       {/* Header */}
@@ -130,7 +151,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Modal to add an Admin */}
+      {/* Modal to add an Admin: */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md sm:max-w-lg">
@@ -181,7 +202,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* Modal to view the Admins */}
+      {/* Modal to view the Admins: */}
       {showViewModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md sm:max-w-lg">
@@ -216,7 +237,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* Confirm Delete Modal */}
+      {/* Confirm Delete Modal: */}
       {confirmDeleteEmail && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md sm:max-w-lg">
@@ -251,6 +272,74 @@ const AdminDashboard = () => {
         </div>
       )}
 
+      {/* User Details Modal: */}
+      {showUserModal && selectedUser && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg sm:max-w-xl overflow-y-auto max-h-[90vh]">
+            <h2 className="text-xl font-semibold mb-4 text-blue-700">
+              User Details
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+              <div>
+                <strong>Full Name:</strong> {selectedUser.fullName}
+              </div>
+              <div>
+                <strong>Email:</strong> {selectedUser.email}
+              </div>
+              <div>
+                <strong>Phone:</strong> {selectedUser.phone}
+              </div>
+              <div>
+                <strong>Category:</strong> {selectedUser.category}
+              </div>
+              <div>
+                <strong>Institution:</strong> {selectedUser.institution}
+              </div>
+              <div>
+                <strong>Country:</strong> {selectedUser.country}
+              </div>
+              <div>
+                <strong>Type:</strong> {selectedUser.type}
+              </div>
+              <div>
+                <strong>SRN/College ID:</strong> {selectedUser.srnOrCollegeId}
+              </div>
+              <div>
+                <strong>Programme Name:</strong> {selectedUser.programmeName}
+              </div>
+              <div className="sm:col-span-2">
+                <strong>Paper Title:</strong> {selectedUser.paperTitle}
+              </div>
+              <div>
+                <strong>Amount Paid:</strong> ₹{selectedUser.amountPaid}
+              </div>
+              <div>
+                <strong>Transaction No:</strong>{" "}
+                {selectedUser.transactionNumber}
+              </div>
+              <div className="sm:col-span-2">
+                <strong>Guide Name:</strong> {selectedUser.guideName}
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center mt-6">
+              <button
+                onClick={() => setShowUserModal(false)}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => handleDeleteRegistration(selectedUser._id)}
+                className="text-red-600 hover:text-red-800 flex items-center"
+              >
+                <FaTrashAlt className="mr-1" /> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Table Section */}
       <section className="bg-white rounded-2xl shadow-xl overflow-hidden mt-6">
         <div className="overflow-x-auto w-full">
@@ -267,7 +356,14 @@ const AdminDashboard = () => {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {data.map((entry, idx) => (
-                <tr key={idx}>
+                <tr
+                  key={idx}
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
+                    setSelectedUser(entry);
+                    setShowUserModal(true);
+                  }}
+                >
                   <td className="px-6 py-4">{entry.fullName}</td>
                   <td className="px-6 py-4">{entry.email}</td>
                   <td className="px-6 py-4">{entry.phone}</td>
