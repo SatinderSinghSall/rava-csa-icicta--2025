@@ -10,12 +10,13 @@ import ContactSection from "./pages/ContactSection";
 import Register from "./pages/Register";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Navbar />
-      {/* Toast notifications */}
+      {/* Toast notifications: */}
       <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,7 +25,16 @@ function App() {
         <Route path="/contact-us" element={<ContactSection />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+        {/* Protected Dashboard route: */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </Router>

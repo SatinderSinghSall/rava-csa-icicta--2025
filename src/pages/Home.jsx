@@ -80,6 +80,18 @@ const Home = () => {
         </section>
       </main>
 
+      {/* CTA */}
+      <section className="bg-indigo-700 text-white text-center py-16 px-6 rounded-tl-3xl rounded-tr-3xl">
+        <h2 className="text-3xl font-bold mb-4">Ready to submit your paper?</h2>
+        <p className="mb-6 max-w-lg mx-auto">Join CSA ICICTA 2025.</p>
+        <a
+          href="/"
+          className="inline-block bg-white text-indigo-700 font-semibold px-8 py-4 rounded-lg hover:bg-gray-100 transition"
+        >
+          Submit your Paper
+        </a>
+      </section>
+
       <CallForPapers />
       <RegistrationFeeTable />
       <Publication />
