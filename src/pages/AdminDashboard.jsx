@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSignOutAlt, FaUserPlus, FaTrashAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
   const [data, setData] = useState([]);
@@ -8,6 +9,9 @@ const AdminDashboard = () => {
   const [newAdmin, setNewAdmin] = useState({ email: "", password: "" });
   const [showViewModal, setShowViewModal] = useState(false);
   const [adminList, setAdminList] = useState([]);
+  const [confirmDeleteEmail, setConfirmDeleteEmail] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const fetchRegistrations = async () => {
@@ -46,6 +50,7 @@ const AdminDashboard = () => {
 
   const handleAddAdmin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
       await axios.post(
@@ -55,34 +60,41 @@ const AdminDashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      alert("Admin added successfully!");
+      toast.success("✅ Admin added successfully!");
       setNewAdmin({ email: "", password: "" });
       setShowModal(false);
     } catch (err) {
       console.error("Error adding admin", err);
-      alert("Failed to add admin.");
+      toast.error("❌ Failed to add admin.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleDeleteAdmin = async (email) => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete ${email}?`
-    );
-    if (confirmDelete) {
-      try {
-        const token = localStorage.getItem("token");
-        await axios.delete(
-          `https://rava-csa-icicta-2025.onrender.com/api/admin/delete/${email}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        alert(`${email} has been deleted successfully!`);
-        setAdminList(adminList.filter((admin) => admin.email !== email)); // Remove the admin from the list
-      } catch (err) {
-        console.error("Error deleting admin", err);
-        alert("Failed to delete admin.");
-      }
+  const handleDeleteAdmin = (email) => {
+    setConfirmDeleteEmail(email); // Show the modal with the selected email
+  };
+
+  const confirmDelete = async () => {
+    setDeleting(true);
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `https://rava-csa-icicta-2025.onrender.com/api/admin/delete/${confirmDeleteEmail}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      toast.success(`${confirmDeleteEmail} has been deleted successfully!`);
+      setAdminList(
+        adminList.filter((admin) => admin.email !== confirmDeleteEmail)
+      );
+    } catch (err) {
+      console.error("Error deleting admin", err);
+      toast.error("Failed to delete admin.");
+    } finally {
+      setDeleting(false);
+      setConfirmDeleteEmail(null);
     }
   };
 
@@ -154,9 +166,14 @@ const AdminDashboard = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                  disabled={loading}
+                  className={`${
+                    loading
+                      ? "bg-blue-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  } text-white px-4 py-2 rounded-md transition`}
                 >
-                  Create
+                  {loading ? "Creating..." : "Create"}
                 </button>
               </div>
             </form>
@@ -193,6 +210,41 @@ const AdminDashboard = () => {
                 className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom delete confirmation modal: */}
+      {confirmDeleteEmail && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4 text-red-600">
+              Confirm Deletion
+            </h2>
+            <p className="mb-6">
+              Are you sure you want to delete{" "}
+              <strong>{confirmDeleteEmail}</strong>? This action cannot be
+              undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setConfirmDeleteEmail(null)}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={deleting}
+                className={`${
+                  deleting
+                    ? "bg-red-400 cursor-not-allowed"
+                    : "bg-red-600 hover:bg-red-700"
+                } text-white px-4 py-2 rounded-md transition`}
+              >
+                {deleting ? "Deleting..." : "Delete"}
               </button>
             </div>
           </div>

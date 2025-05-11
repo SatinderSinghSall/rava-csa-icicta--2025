@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast"; // Import the Toaster
+import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Navbar />
       {/* Toast notifications: */}
       <Toaster position="top-right" />
+      <ToastContainer position="top-right" autoClose={4000} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/call-for-papers" element={<CallForPapers />} />
