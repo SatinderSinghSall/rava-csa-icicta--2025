@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false); // for mobile dropdown
 
   return (
     <header className="bg-white shadow sticky top-0 z-50">
@@ -35,12 +36,40 @@ const Navbar = () => {
           >
             Call for Papers
           </Link>
-          <Link to="/about-us" className="hover:text-blue-600 transition">
-            About
-          </Link>
+
+          {/* Desktop About Dropdown */}
+          <div className="relative group">
+            <button
+              onClick={() => setIsAboutOpen(!isAboutOpen)}
+              className="flex items-center space-x-1 hover:text-blue-600 transition-all duration-300 ease-in-out"
+            >
+              <span className="text-lg">About</span>
+              <ChevronDown size={16} />
+            </button>
+
+            {/* Dropdown Content */}
+            {isAboutOpen && (
+              <div className="absolute left-0 top-full mt-2 bg-white shadow-lg rounded-md w-48 py-2 z-50 opacity-100 transition-all duration-300 ease-in-out">
+                <Link
+                  to="/about-us"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/organizing-committee"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                >
+                  Organizing Committee
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link to="/contact-us" className="hover:text-blue-600 transition">
             Contact Us
           </Link>
+
           {/* <Link
             to="/admin/login"
             className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition shadow-sm"
@@ -68,13 +97,39 @@ const Navbar = () => {
             >
               Call for Papers
             </Link>
-            <Link
-              to="/about-us"
-              className="hover:text-blue-600"
-              onClick={() => setIsOpen(false)}
+
+            {/* Mobile About Dropdown Toggle */}
+            <button
+              onClick={() => setIsAboutOpen(!isAboutOpen)}
+              className="flex items-center justify-between w-full hover:text-blue-600"
             >
-              About
-            </Link>
+              <span>About</span>
+              <ChevronDown
+                size={18}
+                className={`transition-transform ${
+                  isAboutOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            {isAboutOpen && (
+              <div className="pl-4 flex flex-col space-y-2 text-sm">
+                <Link
+                  to="/about-us"
+                  className="hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/organizing-committee"
+                  className="hover:text-blue-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Organizing Committee
+                </Link>
+              </div>
+            )}
+
             <Link
               to="/contact-us"
               className="hover:text-blue-600"
@@ -82,13 +137,14 @@ const Navbar = () => {
             >
               Contact Us
             </Link>
-            <Link
+
+            {/* <Link
               to="/admin/login"
               className="bg-blue-600 text-white text-center px-4 py-2 rounded-full hover:bg-blue-700 transition shadow-sm"
               onClick={() => setIsOpen(false)}
             >
               Admin Login
-            </Link>
+            </Link> */}
           </nav>
         </div>
       )}

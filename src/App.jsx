@@ -1,6 +1,10 @@
 import "./App.css";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -11,8 +15,7 @@ import Register from "./pages/Register";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import OrganizingCommittee from "./pages/OrganizingCommite";
 
 function App() {
   return (
@@ -28,6 +31,7 @@ function App() {
         <Route path="/contact-us" element={<ContactSection />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/organizing-committee" element={<OrganizingCommittee />} />
 
         {/* Protected Dashboard route: */}
         <Route
