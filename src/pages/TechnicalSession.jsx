@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
 
+import MadhanImage from "../assets/MadhanKumarSrinivasan.png";
+import MalathyImage from "../assets/MalathBatumalay.jpeg";
+
 const speakers = [
   {
     name: "Dr. Madhan Kumar Srinivasan",
     title: "Inventor of 121 Patents | CEO of Wise Work & 5x Founder",
     details:
       "Teenpreneur at 19 • Creator of Cloud AI @ Accenture • 2x TEDx Speaker • IIM Calcutta • Accenture Prolific Inventor • Infosys Cloud Tech Guru",
-    image: "https://via.placeholder.com/150?text=Madhan+Kumar",
+    image: MadhanImage,
   },
   {
     name: "Prof. Ir. Dr. Malathy Batumalay",
@@ -14,7 +17,7 @@ const speakers = [
       "Professor, Faculty of Data Science and Information Technology (FDSIT)",
     details:
       "Centre for Data Science and Sustainable Technologies • NTI International University • Putra Nilai, Negeri Sembilan",
-    image: "https://via.placeholder.com/150?text=Malathy+Batumalay",
+    image: MalathyImage,
   },
   {
     name: "Dr. A. Sekar",
