@@ -66,6 +66,13 @@ const Navbar = () => {
             )}
           </div>
 
+          <Link
+            to="/technical-session"
+            className="hover:text-blue-600 transition"
+          >
+            Technical Session
+          </Link>
+
           <Link to="/contact-us" className="hover:text-blue-600 transition">
             Contact Us
           </Link>
@@ -136,6 +143,14 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
             >
               Contact Us
+            </Link>
+
+            <Link
+              to="/technical-session"
+              className="hover:text-blue-600"
+              onClick={() => setIsOpen(false)}
+            >
+              Technical Session
             </Link>
 
             {/* <Link
