@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 import MadhanImage from "../assets/MadhanKumarSrinivasan.png";
 import MalathyImage from "../assets/MalathBatumalay.jpeg";
+import ASekarImage from "../assets/ASekar.jpeg";
 
 const speakers = [
   {
@@ -23,7 +24,7 @@ const speakers = [
     name: "Dr. A. Sekar",
     title: "Associate Professor & HOD – Psychiatry",
     details: "Annapoorna Medical College & Hospitals • Salem",
-    image: "https://via.placeholder.com/150?text=Dr+A+Sekar",
+    image: ASekarImage,
   },
 ];
 

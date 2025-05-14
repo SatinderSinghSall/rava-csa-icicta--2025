@@ -6,6 +6,7 @@ import Publication from "../components/Publication";
 import Patrons from "../components/Patrons";
 import Committee from "../components/Committee";
 import ContactDetails from "../components/ContactDetails";
+import DeveloperCredit from "../components/DeveloperCredit";
 import { FilePlus, Loader2 } from "lucide-react";
 import { useState } from "react";
 
@@ -141,6 +142,7 @@ const Home = () => {
       <Patrons />
       <Committee />
       <ContactDetails />
+      <DeveloperCredit />
     </>
   );
 };
