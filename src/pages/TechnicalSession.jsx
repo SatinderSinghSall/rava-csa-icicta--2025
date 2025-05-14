@@ -30,41 +30,42 @@ const speakers = [
 
 export default function TechnicalSession() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 via-blue-100 to-white py-16 px-6 sm:px-12">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-16">
+    <section className="min-h-screen bg-gradient-to-r from-blue-50 via-blue-100 to-white py-20 px-6 sm:px-10">
+      <div className="max-w-6xl mx-auto text-center">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-6">
           🌟 Technical Session Speakers
         </h1>
+        <p className="text-gray-600 mb-16 text-lg">
+          Meet our distinguished thought leaders and innovators.
+        </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {speakers.map((speaker, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-white rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl p-6 transition-all duration-300"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 flex flex-col items-center text-center border border-gray-100"
             >
-              <div className="flex flex-col items-center text-center">
-                <img
-                  src={speaker.image}
-                  alt={speaker.name}
-                  className="w-28 h-28 rounded-full object-cover mb-6 border-4 border-indigo-200"
-                />
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  {speaker.name}
-                </h2>
-                <p className="text-sm text-indigo-600 font-semibold mb-4">
-                  {speaker.title}
-                </p>
-              </div>
-
-              <div className="mt-4 text-sm text-gray-700 leading-relaxed">
+              <img
+                src={speaker.image}
+                alt={speaker.name}
+                className="w-24 h-24 rounded-full object-cover mb-5 border-4 border-indigo-100"
+              />
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                {speaker.name}
+              </h2>
+              <p className="text-sm text-indigo-600 font-medium mb-4">
+                {speaker.title}
+              </p>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 {speaker.details}
-              </div>
+              </p>
             </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
